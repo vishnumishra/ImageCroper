@@ -1,0 +1,78 @@
+<div>
+	<h3>File Upload:</h3>
+	Select a file to upload: 
+	<br />
+	
+
+	<form action="http://localhost:1337/image/crop" method="POST" enctype="multipart/form-data">
+		<div class="img-preview"></div>
+		<input type="file" id="inpImg" name="image" size="100" />
+		<input type="file" id="changeImg"  size="100" />
+		<div class='img-container'>
+		  <img id="selectedImage" style="width:300px" >
+		</div>
+		<br />
+		<input type="submit" value="Upload File" />
+	</form>
+
+<button id='reset'> RESET</button>
+
+	<script>
+		var $image = $(".img-container img"),
+		    $dataX = $("#dataX"),
+		    $dataY = $("#dataY"),
+		    $dataHeight = $("#dataHeight"),
+		    $dataWidth = $("#dataWidth");
+
+		function initCrop(src){
+			// $().cropper('replace',);
+			$('#selectedImage').cropper({
+			  aspectRatio: 1 / 1,
+			  // background:false,
+			  // autoCrop: false,
+			  preview: ".img-preview",
+			  done: function(data) {
+			    $dataX.val(Math.round(data.x));
+			    $dataY.val(Math.round(data.y));
+			    $dataHeight.val(Math.round(data.height));
+			    $dataWidth.val(Math.round(data.width));
+			  },
+			  crop: function(e) {
+			    // Output the result data for cropping image.
+			    console.log("x",e.x);
+			    console.log("y",e.y);
+			    console.log(e.width);
+			    console.log(e.height);
+			  },
+			  viewMode:2,
+			  // preview:"#previewImage",
+			  cropBoxResizable:false
+			});
+		};
+
+		function readURL(input) {
+
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+
+		        reader.onload = function (e) {
+		            $('#selectedImage').attr('src', e.target.result);
+		            initCrop();
+		        }
+
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+		
+		$("#reset").click(function() {
+		  $image.cropper("reset");
+		});
+
+		$("#inpImg").change(function(){
+		    readURL(this);
+		    $("#inpImg").hide();
+		    $("#changeImg").show();
+		});
+
+	</script>
+</div>

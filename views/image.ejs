@@ -1,0 +1,25 @@
+<div>
+	<h1>Find your all Images</h1>
+	<% _.each(Images, function (image) { %>
+		
+		<div>
+			<p>Original Image</p>
+			<img style="height: 250px;width: 250px" class="mainImage" src="/<%= image.main %>" alt="">
+		</div>
+		<div style="border: solid gray 2px; height: 300px;width: 100%;" >
+			<div class="imageContainer">
+				<img class="horizontalImg" src="/<%= image.horizontal %>" alt="">
+			</div>
+			<div class="imageContainer">
+				<img class="verticalImg" src="/<%= image.vertical %>" alt="">
+			</div>
+			<div class="imageContainer">
+				<img class="hsmImg" src="/<%= image.hsm %>" alt="">
+			</div>
+			<div class="imageContainer">
+				<img class="galleryImg" src="/<%= image.gallery %>" alt="">
+			</div>
+		</div>
+   <% }) %>
+
+</div>
